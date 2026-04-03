@@ -20,9 +20,13 @@ import androidx.navigation3.ui.NavDisplay
 import dagger.hilt.android.AndroidEntryPoint
 import edu.wololo.ui.theme.WololoTheme
 import kotlinx.serialization.Serializable
+import kotlin.uuid.Uuid
 
 @Serializable
-data object Home : NavKey
+data object TodoItemsHome : NavKey
+
+@Serializable
+data class TodoItemsDetail(val id: Uuid) : NavKey
 
 
 @AndroidEntryPoint
@@ -32,16 +36,22 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             WololoTheme {
-                val backStack = rememberNavBackStack(Home)
+                val backStack = rememberNavBackStack(TodoItemsDetail(Uuid.random()))
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     NavDisplay(
                         entryDecorators = listOf(
                             rememberSaveableStateHolderNavEntryDecorator(),
                             rememberViewModelStoreNavEntryDecorator()
                         ), backStack = backStack, entryProvider = entryProvider {
-                            entry<Home> {
+                            entry<TodoItemsHome> {
                                 Greeting(
                                     name = "leeroy", modifier = Modifier.padding(innerPadding)
+                                )
+                            }
+                            entry<TodoItemsDetail> { key ->
+                                Greeting(
+                                    name = "leeroy detail ${key.id}",
+                                    modifier = Modifier.padding(innerPadding)
                                 )
                             }
                         })
