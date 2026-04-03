@@ -61,6 +61,11 @@ dependencies {
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
 
+    implementation(libs.nav3.runtime)
+    implementation(libs.nav3.ui)
+    implementation(libs.lifecycle.viewmodel.nav3)
+    implementation(libs.material3.adaptive.nav3)
+
     implementation(libs.room3.runtime)
     implementation(libs.room3.paging)
 
